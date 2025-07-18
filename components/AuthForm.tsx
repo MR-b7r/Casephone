@@ -5,7 +5,7 @@ import Link from "next/link";
 import { LoginLink } from "@kinde-oss/kinde-auth-nextjs";
 const AuthForm = ({ type }: { type: string }) => {
   return (
-    <div className="min-h-screen flex fle-col items-center justify-center">
+    <div className="min-h-screen flex flex-col items-center justify-center">
       <div className="py-6 px-4">
         <div className="grid md:grid-cols-2 items-center gap-6 max-w-6xl w-full">
           <div className="border border-slate-300 rounded-lg p-6 max-w-md shadow-[0_2px_22px_-4px_rgba(93,96,127,0.2)] max-md:mx-auto">
