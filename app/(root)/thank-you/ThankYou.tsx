@@ -9,10 +9,10 @@ import { formatPrice } from "@/lib/utils";
 
 const ThankYou = () => {
   const searchParams = useSearchParams();
-  const orderId = searchParams.get("orderId");
+  const orderId = searchParams.get("orderId") || "";
   const { data } = useQuery({
     queryKey: ["get-payment-status", orderId],
-    queryFn: async () => await getPaymentStatus({ orderId: orderId! }),
+    queryFn: async () => await getPaymentStatus({ orderId }),
     retry: true,
     retryDelay: 500,
   });

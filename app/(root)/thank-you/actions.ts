@@ -22,7 +22,7 @@ export const getPaymentStatus = async ({ orderId }: { orderId: string }) => {
       user: true,
     },
   });
-  // console.log("order", order);
+  console.log("order", order);
   if (!order) throw new Error("This order does not exist.");
   if (order.isPaid) {
     return order;
