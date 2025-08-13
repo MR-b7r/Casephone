@@ -11,7 +11,6 @@ import {
 const Navbar = async () => {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
-  // console.log(user);
   const isAdmin = user?.email === process.env.ADMIN_EMAIL;
   return (
     <nav className="sticky z-[100] h-14 w-full top-0 border-b border-gray-200 bg-white/75 backdrop-blur-lg transition-all">

@@ -56,7 +56,6 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
       );
     },
   });
-  console.log(user);
   async function handleCheckout() {
     if (user) createPaymentSession({ configId: configuration.id });
     else {
@@ -154,8 +153,9 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
 
             <div className="mt-8 flex justify-end pb-12">
               <Button
-                // isLoading={true}
-                // loadingText="Checking out..."
+                isLoading={isPending}
+                disabled={isPending}
+                loadingText="Checking out..."
                 onClick={() => handleCheckout()}
                 className="px-4 sm:px-6 lg:px-8"
               >

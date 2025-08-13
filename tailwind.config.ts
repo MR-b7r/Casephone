@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 import type { Config } from "tailwindcss";
-import tailwindcssAnimate from "tailwindcss-animate";
+// import tailwindcssAnimate from "tailwindcss-animate";
 
 const config = {
   darkMode: ["class"],
@@ -85,9 +86,9 @@ const config = {
       },
     },
   },
-  plugins: [tailwindcssAnimate],
+  // plugins: [tailwindcssAnimate],
 
-  //   plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate")],
 } satisfies Config;
 
 export default config;

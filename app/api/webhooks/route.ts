@@ -3,8 +3,13 @@ import { stripe } from "@/lib/stripe";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
+import { Resend } from "resend";
+import OrderReceivedEmail from "@/components/emails/OrderReceivedEmail";
+import { NextApiResponse } from "next";
 
-export async function POST(req: Request) {
+const resend = new Resend(process.env.RESEND_API_KEY!);
+
+export async function POST(req: Request, res: NextApiResponse) {
   try {
     const body = await req.text();
     const signature = headers().get("stripe-signature");
@@ -67,8 +72,30 @@ export async function POST(req: Request) {
           },
         },
       });
-    }
 
+      const { data } = await resend.emails.send({
+        from: "Casephoneshop <haithamb74@gmail.com>",
+        to: [
+          event.data.object.customer_details!.email!,
+          "haithamb74@gmail.com",
+        ],
+        subject: "Thank you for your order!",
+        react: OrderReceivedEmail({
+          orderId,
+          orderDate: updatedOrder.createdAt.toLocaleDateString(),
+          // @ts-ignore
+          shippingAddress: {
+            name: session.customer_details!.name!,
+            city: shippingAddress!.city!,
+            country: shippingAddress!.country!,
+            postalCode: shippingAddress!.postal_code!,
+            street: shippingAddress!.line1!,
+            state: shippingAddress!.state,
+          },
+        }),
+      });
+      res.status(200).json(data);
+    }
     return NextResponse.json({ result: event, ok: true });
   } catch (err) {
     console.error(err);

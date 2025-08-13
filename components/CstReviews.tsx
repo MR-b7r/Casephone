@@ -1,6 +1,8 @@
-import React from "react";
+"use client";
+import React, { useEffect } from "react";
 import { Check, Star } from "lucide-react";
 import Image from "next/image";
+import { motion, useAnimate, useAnimation, useInView } from "motion/react";
 
 const customerReviews = [
   {
@@ -35,12 +37,34 @@ const customerReviews = [
   // },
 ];
 const CstReviews = () => {
+  const [scope] = useAnimate();
+  const controls = useAnimation();
+  const isInView = useInView(scope, {
+    once: true,
+    amount: 0.4,
+    margin: "100px 0px 0px 0px",
+  });
+
+  useEffect(() => {
+    if (isInView) {
+      controls.start({
+        opacity: 1,
+        margin: "0px",
+        transition: { duration: 0.8, ease: "easeOut" },
+      });
+    }
+  }, [isInView]);
   return (
-    <div className="mx-auto grid max-w-2xl grid-cols-1 px-4 lg:mx-0 lg:max-w-none lg:grid-cols-2 gap-y-16">
+    <motion.div
+      ref={scope}
+      initial={{ opacity: 0.5, margin: "100px 0px 0px 0px" }}
+      animate={controls}
+      className="mx-auto grid max-w-2xl grid-cols-1 px-4 lg:mx-0 lg:max-w-none lg:grid-cols-2 gap-y-16 "
+    >
       {customerReviews.map((review, index) => (
         <div
           key={index}
-          className="flex flex-auto flex-col gap-4 lg:pr-8 xl:pr-20"
+          className="flex flex-auto flex-col gap-4 lg:pr-8 xl:pr-20 "
         >
           <div className="flex gap-0.5 mb-2">
             <Star className="h-5 w-5 text-violet-600 fill-violet-600" />
@@ -76,7 +100,7 @@ const CstReviews = () => {
           </div>
         </div>
       ))}
-    </div>
+    </motion.div>
   );
 };
 export default CstReviews;

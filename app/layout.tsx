@@ -1,10 +1,10 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono, Recursive } from "next/font/google";
+import { Recursive } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Toaster } from "@/components/ui/sonner";
 import Providers from "../components/Providers";
+import { constructMetadata } from "@/lib/utils";
 
 const recursive = Recursive({ subsets: ["latin"] });
 
@@ -18,10 +18,7 @@ const recursive = Recursive({ subsets: ["latin"] });
 //   subsets: ["latin"],
 // });
 
-export const metadata: Metadata = {
-  title: "CoverShop",
-  description: "Make your own phone cover",
-};
+export const metadata = constructMetadata();
 
 export default function RootLayout({
   children,
